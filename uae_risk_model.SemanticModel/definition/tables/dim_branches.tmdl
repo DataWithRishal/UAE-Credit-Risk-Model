@@ -1,0 +1,50 @@
+table dim_branches
+	lineageTag: 078e0ae9-8fde-475f-9075-578fd1c49e86
+
+	column branch_id
+		dataType: string
+		lineageTag: 3444e377-2169-4188-95a3-7a65cbaf75c7
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_name
+		dataType: string
+		lineageTag: f06e2faa-13c8-42fe-9907-c5568bc965a4
+		summarizeBy: none
+		sourceColumn: branch_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: dfe0c85c-02b8-4a9f-97b9-0fc010ddd97c
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_type
+		dataType: string
+		lineageTag: 0c8d0def-f6ee-4cb5-bbf0-b19336b834de
+		summarizeBy: none
+		sourceColumn: region_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_branches = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\RAMEES\Desktop\uae_credit_risk_hub\data\dim_branches.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"branch_id", type text}, {"branch_name", type text}, {"emirate", type text}, {"region_type", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

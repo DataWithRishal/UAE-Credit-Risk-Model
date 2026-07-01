@@ -1,0 +1,46 @@
+table '_Risk Measures'
+	lineageTag: 799c2ba1-e379-4e3d-a92c-f4aa0a0ad7ae
+
+	measure 'Total Portfolio Value' = SUM(fact_loans[loan_amount_aed])
+		formatString: "AED"#,0;-"AED"#,0;"AED"#,0
+		lineageTag: b9d256b1-6253-4ed2-8e88-4ac2eeac46da
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AE"}
+
+	measure 'Total Outstanding' = SUM(fact_loans[outstanding_balance_aed])
+		formatString: "AED"#,0;-"AED"#,0;"AED"#,0
+		lineageTag: 7d502e6b-d49f-4015-8b52-333cc597e359
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AE"}
+
+	measure 'NPL Balance' = CALCULATE([Total Outstanding], fact_loans[days_past_due] >= 90)
+		formatString: "AED"#,0;-"AED"#,0;"AED"#,0
+		lineageTag: a2fc7b79-aaf6-4d91-867e-16448266a8bd
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AE"}
+
+	measure 'NPL Ratio' = DIVIDE([NPL Balance], [Total Outstanding], 0)
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		lineageTag: b3568206-199f-49d0-a014-9cc10a617e7f
+
+	column Column1
+		dataType: string
+		lineageTag: 46af6ab3-f194-4426-ab90-0c67653839f2
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '_Risk Measures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

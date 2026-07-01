@@ -1,0 +1,25 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["fact_loans","dim_customers","dim_branches","dim_calendar","_Risk Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fact_loans
+ref table DateTableTemplate_f5ab1dc8-d09b-41e4-8fc7-87d2e3b2e83b
+ref table LocalDateTable_95910615-8fce-43f3-9a9a-89ae8b00a1f9
+ref table dim_customers
+ref table dim_branches
+ref table dim_calendar
+ref table LocalDateTable_5b3ce58a-c406-436c-b82d-0ea4b2384f95
+ref table '_Risk Measures'
+
+ref cultureInfo en-IN
+

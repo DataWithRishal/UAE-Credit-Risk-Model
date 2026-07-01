@@ -1,0 +1,95 @@
+table dim_calendar
+	lineageTag: 3f7e8d0e-8ba4-44e4-b858-81df575afe54
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3142aea4-9c65-4bc9-94e9-3a179f497622
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 5f511608-391f-43fd-adbb-4183f76c90a2
+			defaultHierarchy: LocalDateTable_5b3ce58a-c406-436c-b82d-0ea4b2384f95.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a76733d-028c-44fb-9582-78d8b3b618d0
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: c2b33172-479c-405a-875b-62d63e34e473
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: a2d0f226-cf63-4cd3-a28e-7adc4e87e32d
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_uae_weekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b3cca234-cb4e-47c4-a15e-95c7f0c8515c
+		summarizeBy: none
+		sourceColumn: is_uae_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_ramadan
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6dbd7602-d03b-47d0-a0ac-f47917d1a2f7
+		summarizeBy: none
+		sourceColumn: is_ramadan
+
+		annotation SummarizationSetBy = Automatic
+
+	column uae_public_holiday
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3ca67348-c704-425d-ab68-1612fa848d60
+		summarizeBy: none
+		sourceColumn: uae_public_holiday
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter_label
+		dataType: string
+		lineageTag: 476da4f1-0d61-426a-9bf3-8b3579285748
+		summarizeBy: none
+		sourceColumn: quarter_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_calendar = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\RAMEES\Desktop\uae_credit_risk_hub\data\dim_calendar.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date", type date}, {"year", Int64.Type}, {"quarter", Int64.Type}, {"month", Int64.Type}, {"is_uae_weekend", type logical}, {"is_ramadan", type logical}, {"uae_public_holiday", type logical}, {"quarter_label", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

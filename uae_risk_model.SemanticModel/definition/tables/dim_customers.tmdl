@@ -1,0 +1,76 @@
+table dim_customers
+	lineageTag: 44b2408b-f225-4708-bd4b-dae60ca0c4c4
+
+	column customer_id
+		dataType: string
+		lineageTag: 3e1d7099-44b9-429b-98b2-b2351eafdea5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_segment
+		dataType: string
+		lineageTag: 4294c3d9-bede-46e4-946a-8471c2df943f
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column nationality_group
+		dataType: string
+		lineageTag: 9141820d-ffb1-4fcd-be99-65b3160896c5
+		summarizeBy: none
+		sourceColumn: nationality_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_income_aed
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b8fd1ad-6bc6-4e64-b579-01bc445c6a4b
+		summarizeBy: none
+		sourceColumn: monthly_income_aed
+
+		annotation SummarizationSetBy = Automatic
+
+	column debt_burden_ratio
+		dataType: double
+		lineageTag: faa037b2-bf4f-448e-beaa-297223508818
+		summarizeBy: none
+		sourceColumn: debt_burden_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column employment_type
+		dataType: string
+		lineageTag: 209ec65c-3e38-4bdb-984f-6bdda6b22be3
+		summarizeBy: none
+		sourceColumn: employment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: b96f955a-2b3c-4d56-baa9-a0f5cb72565c
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customers = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\RAMEES\Desktop\uae_credit_risk_hub\data\dim_customers.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"customer_id", type text}, {"customer_segment", type text}, {"nationality_group", type text}, {"monthly_income_aed", Int64.Type}, {"debt_burden_ratio", type number}, {"employment_type", type text}, {"emirate", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

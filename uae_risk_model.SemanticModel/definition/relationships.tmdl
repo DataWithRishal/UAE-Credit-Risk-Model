@@ -1,0 +1,22 @@
+relationship 24dcd770-ff52-4b72-b89d-695d0d7b25d6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_loans.maturity_date
+	toColumn: LocalDateTable_95910615-8fce-43f3-9a9a-89ae8b00a1f9.Date
+
+relationship 5f511608-391f-43fd-adbb-4183f76c90a2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_calendar.date
+	toColumn: LocalDateTable_5b3ce58a-c406-436c-b82d-0ea4b2384f95.Date
+
+relationship AutoDetected_58b36513-ba1d-4fee-9f01-2fe4e503b5cf
+	fromColumn: fact_loans.customer_id
+	toColumn: dim_customers.customer_id
+
+relationship AutoDetected_1954538d-a5a6-4363-af8b-08606af96f59
+	fromColumn: fact_loans.branch_id
+	toColumn: dim_branches.branch_id
+
+relationship 7b42d7fc-7af8-3d8e-ee8d-17083bc5ab40
+	fromColumn: fact_loans.origination_date
+	toColumn: dim_calendar.date
+

@@ -1,0 +1,204 @@
+table fact_loans
+	lineageTag: 1522186b-91ea-4f93-8ded-865f1c9d15ff
+
+	column loan_id
+		dataType: string
+		lineageTag: 082be80a-f4b0-45d6-aea8-4c4962b6c78e
+		summarizeBy: none
+		sourceColumn: loan_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: e77c9bed-bb86-4612-b09e-318b1a8cbc81
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column branch_id
+		dataType: string
+		lineageTag: 9155d3a7-646b-46aa-90c7-c4ccd5fd69d9
+		summarizeBy: none
+		sourceColumn: branch_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_type
+		dataType: string
+		lineageTag: a0481357-e394-4a46-a8e0-832db352afe3
+		summarizeBy: none
+		sourceColumn: product_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column loan_amount_aed
+		dataType: decimal
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: a6ab2bd4-a7f4-42cc-bec3-8c1ad0c1b13a
+		summarizeBy: sum
+		sourceColumn: loan_amount_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	column outstanding_balance_aed
+		dataType: decimal
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: f979a598-795f-42d8-87fa-c5b958278907
+		summarizeBy: sum
+		sourceColumn: outstanding_balance_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	column interest_rate_pct
+		dataType: double
+		lineageTag: f9ca83b5-f7b2-4619-a09d-19e5f849436b
+		summarizeBy: sum
+		sourceColumn: interest_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column origination_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f2a1c619-d13c-41d3-9f30-327dcae114ae
+		summarizeBy: none
+		sourceColumn: origination_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column maturity_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 49e5d40a-74d3-4e6c-9d5c-70122f546d72
+		summarizeBy: none
+		sourceColumn: maturity_date
+
+		variation Variation
+			isDefault
+			relationship: 24dcd770-ff52-4b72-b89d-695d0d7b25d6
+			defaultHierarchy: LocalDateTable_95910615-8fce-43f3-9a9a-89ae8b00a1f9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column days_past_due
+		dataType: int64
+		formatString: 0
+		lineageTag: dd13b03e-c2d6-4dff-96e0-59062fc6ba24
+		summarizeBy: sum
+		sourceColumn: days_past_due
+
+		annotation SummarizationSetBy = Automatic
+
+	column dpd_bucket
+		dataType: string
+		lineageTag: f122459c-b52d-4579-984b-f40687e3bdc8
+		summarizeBy: none
+		sourceColumn: dpd_bucket
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_npl
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0140069d-27b3-4e04-9e55-edcde0243134
+		summarizeBy: none
+		sourceColumn: is_npl
+
+		annotation SummarizationSetBy = Automatic
+
+	column collateral_type
+		dataType: string
+		lineageTag: 8c9b0d10-21c7-44a9-a89e-d3e7f389258a
+		summarizeBy: none
+		sourceColumn: collateral_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column collateral_value_aed
+		dataType: double
+		lineageTag: 92a1818d-724e-44fe-b47a-f17a33eda7a3
+		summarizeBy: sum
+		sourceColumn: collateral_value_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ltv_ratio
+		dataType: double
+		lineageTag: 6e7b36f8-885f-4977-9304-a0f7f1ab370d
+		summarizeBy: sum
+		sourceColumn: ltv_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column provision_amount_aed
+		dataType: double
+		lineageTag: 21d96cd3-9fb6-4402-a2b3-c5ae38ab7a35
+		summarizeBy: sum
+		sourceColumn: provision_amount_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column risk_grade
+		dataType: string
+		lineageTag: d8fb787b-2a37-4b10-bb57-67d9d0d78deb
+		summarizeBy: none
+		sourceColumn: risk_grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column ecl_stage
+		dataType: string
+		lineageTag: d1a4c7f9-5b94-4b7f-aab2-f4a98da88541
+		summarizeBy: none
+		sourceColumn: ecl_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column jurisdiction
+		dataType: string
+		lineageTag: 9bee4b79-e514-41e7-907f-2b3f27504c11
+		summarizeBy: none
+		sourceColumn: jurisdiction
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: 7a4940eb-d3b0-4bb6-97ee-7059856e64b9
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_loans = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\RAMEES\Desktop\uae_credit_risk_hub\data\fact_loans.csv"),[Delimiter=",", Columns=20, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"loan_id", type text}, {"customer_id", type text}, {"branch_id", type text}, {"product_type", type text}, {"loan_amount_aed", Currency.Type}, {"outstanding_balance_aed", Currency.Type}, {"interest_rate_pct", type number}, {"origination_date", type date}, {"maturity_date", type date}, {"days_past_due", Int64.Type}, {"dpd_bucket", type text}, {"is_npl", type logical}, {"collateral_type", type text}, {"collateral_value_aed", type number}, {"ltv_ratio", type number}, {"provision_amount_aed", type number}, {"risk_grade", type text}, {"ecl_stage", type text}, {"jurisdiction", type text}, {"currency", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

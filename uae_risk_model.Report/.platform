@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "uae_risk_model"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "79d82a98-a414-46ba-aba0-ce53a87bd9dc"
+  }
+}
